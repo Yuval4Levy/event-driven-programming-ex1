@@ -18,7 +18,7 @@ This project consists of a producer and a consumer service that communicate via 
 1. **Clone the repository:**
 
     ```sh
-    git clone [repository_url]
+    git clone https://github.com/Yuval4Levy/event-driven-programming-ex1.git
     cd src
     ```
 
@@ -108,33 +108,4 @@ This project consists of a producer and a consumer service that communicate via 
 
 - **Exchange Declaration:** The producer service declares the exchange. This ensures that the exchange exists before any messages are published to it.
 
-    ```python
-    channel.exchange_declare(exchange='orders', exchange_type='fanout')
-    ```
-
-- **Queue Declaration:** The consumer service declares the queue. This ensures that the queue exists before the consumer starts consuming messages from it.
-
-    ```python
-    channel.queue_declare(queue='orders_queue', durable=True)
-    channel.queue_bind(exchange='orders', queue='orders_queue')
-    ```
-
-## Accessing RabbitMQ Management
-
-The RabbitMQ management interface can be accessed at `http://localhost:15672`. The username and password are `myuser` and `mypassword`.
-
-## Notes
-
-- Ensure that RabbitMQ is running and accessible before starting the producer and consumer services.
-- Adjust the RabbitMQ host and port in the environment variables if needed.
-- The consumer processes messages asynchronously, so there might be a slight delay before the order appears in the consumer's data store.
-
-## Troubleshooting
-
-If you encounter any issues, consider the following steps:
-
-1. **Check Docker Logs:** Use `docker-compose logs` to check the logs for any errors or warnings.
-2. **Verify RabbitMQ Setup:** Ensure that RabbitMQ is running and accessible. Check the management interface for the status of exchanges, queues, and bindings.
-3. **Network Configuration:** Ensure that the Docker network allows communication between the producer, consumer, and RabbitMQ services.
-
-If you need further assistance, feel free to reach out.
+- **Queue Declaration:** The consumer service declares the queue. This ensures that the queue exists before the consumer starts consuming messages from it, it also ensures that each consumer in a scaled system listens to the same queue.
